@@ -17,7 +17,7 @@ export class PersonController {
     return this.personService.findAll();
   }
   @Delete()
-  async  deleteById(@Query() _id): Promise<Person> {
-    return this.personService.deleteById(_id);
+  async  deleteById(@Query() id): Promise<Person> {
+    return this.personService.deleteById(id);
   }
 }

@@ -16,7 +16,7 @@ export class PersonService {
     return await this.personModel.find().exec();
   }
 
-  async deleteById(_id): Promise<Person> {
-    return await this.personModel.remove({ _id }).exec();
+  async deleteById(id): Promise<Person> {
+    return await this.personModel.remove({ id }).exec();
   }
 }
