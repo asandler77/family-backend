@@ -10,16 +10,17 @@ export class PersonService {
       // @Inject('PERSON_MODEL') private readonly personModel: Model<Person>,
               private personDbService: PersonDbService) {}
 
-  // async create(createPersonDto: CreatePersonDto): Promise<Person> {
-  //   const createdPerson = new this.personModel(createPersonDto);
-  //   return await createdPerson.save();
-  // }
+  async create(createPersonDto: CreatePersonDto): Promise<Person> {
+    const createdPerson = {...createPersonDto};
+        // new this.personModel(createPersonDto);
+    return await this.personDbService.create(createPersonDto);
+  }
 
   async findAll(): Promise<Person[]> {
     return await this.personDbService.getAll();
   }
 
-  // async deleteById(id): Promise<Person> {
-  //   return await this.personModel.remove({ id }).exec();
-  // }
+  async deleteById(id): Promise<Person> {
+    return await this.personDbService.deleteById({ id });
+  }
 }

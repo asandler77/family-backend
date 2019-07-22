@@ -7,17 +7,21 @@ import { Person } from './interfaces/person.interface';
 export class PersonController {
   constructor(private readonly personService: PersonService) {}
 
-  // @Post()
-  // async create(@Body() createPersonDto: CreatePersonDto) {
-  //   return this.personService.create(createPersonDto);
-  // }
+  @Post()
+  async create(@Body() createPersonDto: CreatePersonDto) {
+    return this.personService.create(createPersonDto);
+  }
 
   @Get()
   async findAll(): Promise<Person[]> {
     return this.personService.findAll();
   }
-  // @Delete()
-  // async  deleteById(@Query() id): Promise<Person> {
-  //   return this.personService.deleteById(id);
-  // }
+//     const response = await this.httpService
+// .get(TEST_EXECUTION_URL)
+// .toPromise();
+//     return response.data;
+  @Delete()
+  async  deleteById(@Query() id): Promise<Person> {
+    return this.personService.deleteById(id);
+  }
 }
