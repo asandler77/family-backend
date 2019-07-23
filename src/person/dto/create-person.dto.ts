@@ -4,4 +4,5 @@ export class CreatePersonDto {
     @IsString()
     readonly _id?: string; // mongodb id auto generated
     readonly firstName: string;
+    readonly lastName: string;
 }
