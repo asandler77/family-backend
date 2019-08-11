@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-env-cm
+  labels:
+    addonmanager.kubernetes.io/mode: Reconcile
+data:
+{{ toYaml .Values.configMap.env | indent 2 }}
+

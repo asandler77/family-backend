@@ -1,0 +1,6 @@
+name: ci-app
+version: 0.0.1
+description: Helm chart for save-backend microservice
+maintainers:
+- name: Alexey Sa
+  email: alexey@intl.att.com

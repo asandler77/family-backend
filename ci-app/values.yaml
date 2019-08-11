@@ -1,0 +1,32 @@
+######## Environment Selector ########
+isCI: true
+
+
+######## General ########
+deployment:
+  app:
+    image:
+      registry: "navivi/lets-chat-app"
+      tag: "v1"
+      imagePullPolicy: IfNotPresent
+    replicas: 1
+    containerPort: 8080
+
+
+######## Service ########
+service:
+  type: LoadBalancer
+  # the port that the service expose is the same as containerPort from the deployment
+
+
+######## ConfigMap ########
+configMap:
+  # any added values will be deployed as env variables in the container
+  env:
+  - name: MONGO_HOST
+    value: lc-db
+  - name: MONGO_PORT
+    value: "27017"
+  kubeEnv: "files/config"
+  keyName: "config"
+   

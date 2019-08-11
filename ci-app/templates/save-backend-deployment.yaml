@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-deployment
+  labels:
+    app: {{ .Release.Name }}
+spec:
+  replicas: {{ .Values.deployment.app.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}
+    spec:
+      containers:
+      - name: save-backend
+        image: {{ .Values.deployment.app.image.registry }}:{{  .Values.deployment.app.image.tag }}
+        imagePullPolicy: {{  .Values.deployment.app.image.imagePullPolicy }}
+        resources:
+{{ toYaml .Values.deployment.app.resources | indent 12 }}
+        securityContext:
+          privileged: true
+        envFrom:
+        - configMapRef:
+            name: {{ .Release.Name }}-env-cm
+        ports:
+        - containerPort: {{ .Values.deployment.app.containerPort }}
+        volumeMounts:
+        - name: config-volume
+          mountPath: /root/.kube/config
+          subPath: config
+      imagePullSecrets:
+      - name: {{ .Release.Name }}-registry-cred
+      volumes:
+      - name: config-volume
+        configMap:
+          name: {{ .Release.Name }}-cm
+          items:
+          - key: {{ .Values.configMap.keyName }}
+            path: config
+      
